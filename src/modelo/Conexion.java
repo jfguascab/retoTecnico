@@ -4,6 +4,7 @@ package modelo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+
 public class Conexion {
     //creamos atributos para conectar que son la url a la base de datos, el usuario root y la contraseña
     public static final String URL = "jdbc:mysql://localhost:3360/naves?autoReconnet=true&useSSL=false";

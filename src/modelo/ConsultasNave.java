@@ -17,7 +17,7 @@ public class ConsultasNave extends Conexion{
         
         try{//para evitar excepciones
             //con prepareStatement escribimos codigo mysql para insertar los datos tipo nave
-            ps = conexion.prepareStatement("insert into nave (clave,nombre,pesoTonelada,combustible,velocidadKmHora,potenciaHp,PropulsionTonelada,cantidadPersona,orbitaKm,transportaTonelada,idTipo,idAgencia) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+            ps = conexion.prepareStatement("insert into nave (clave,nombre,pesoTonelada,combustible,velocidadKmHora,potenciaHp,propulsionTonelada,cantidadPersona,orbitaKm,transportaTonelada,idTipo,idAgencia) values (?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, nave.getClave());//1 para el primer campo de values?
             ps.setString(2, nave.getNombre());
             ps.setDouble(3, nave.getPesoTonelada());
@@ -57,21 +57,24 @@ public class ConsultasNave extends Conexion{
         Connection conexion = getConnection();//establecemos la conexion
         
         try{//prepareStatement para utilizar mysql para buscar por la clave
-            ps = conexion.prepareStatement("select n.idNave,n.clave,n.nombre,n.pesoTonelada,n.combustible,n.velocidadKmHora,n.PotenciaHp,n.PropulsionTonelada,n.cantidadPersona,n.orbitaKm,n.transportaTonelada,n.cantidadPersona, t.tipo, f.funcion, a.agencia from nave as n inner join tipo as t on n.idTipo=t.idTipo inner join funcion as f on t.idFuncion=f.idFuncion inner join agencia as a on n.idAgencia=a.idAgencia where clave=?");
+            ps = conexion.prepareStatement("select t.idTipo, a.idAgencia, n.idNave,n.clave,n.nombre,n.pesoTonelada,n.combustible,n.velocidadKmHora,n.potenciaHp,n.propulsionTonelada,n.cantidadPersona,n.orbitaKm,n.transportaTonelada, t.tipo, f.funcion, a.agencia from nave as n inner join tipo as t on n.idTipo=t.idTipo inner join funcion as f on t.idFuncion=f.idFuncion inner join agencia as a on n.idAgencia=a.idAgencia where clave=?");
             ps.setString(1, nave.getClave());//seleccionamos la nave por su clave
             
             rs = ps.executeQuery();//ejecutamos query y guardamos en rs
             
             if(rs.next()){// si encuentra el registro
                 //obtenemos los datos de nave r
+                nave.setIdTipo(rs.getInt("IdTipo"));
+                nave.setIdAgencia(rs.getInt("idAgencia"));
+                
                 nave.setIdNave(rs.getInt("idNave"));
                 nave.setClave(rs.getString("clave"));
                 nave.setNombre(rs.getString("nombre"));
                 nave.setPesoTonelada(rs.getDouble("pesoTonelada"));
                 nave.setCombustible(rs.getString("combustible"));
                 nave.setVelocidadKmHora(rs.getDouble("velocidadKmHora"));
-                nave.setPotenciaHp(rs.getDouble("PotenciaHp"));//
-                nave.setPropulsionTonelada(rs.getDouble("PropulsionTonelada"));
+                nave.setPotenciaHp(rs.getDouble("potenciaHp"));//
+                nave.setPropulsionTonelada(rs.getDouble("propulsionTonelada"));
                 nave.setCantidadPersona(rs.getInt("cantidadPersona"));
                 nave.setOrbitaKm(rs.getDouble("orbitaKm"));//
                 nave.setTransportaTonelada(rs.getDouble("transportaTonelada"));
@@ -79,8 +82,8 @@ public class ConsultasNave extends Conexion{
                 nave.setAgencia(rs.getString("agencia"));
                 nave.setFuncion(rs.getString("funcion"));
                 
-               // nave.setIdTipo(rs.getInt("idTipo"));// falta llamar a el tipo desde clase tipo
-              //  nave.setIdAgencia(rs.getInt("idAgencia"));
+              
+              
                 return true;//retornamos verdadero
             }
             else{//si no false
