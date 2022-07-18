@@ -6,15 +6,14 @@ import java.awt.event.ActionListener;//para relacinarse con la vista
 import javax.swing.JOptionPane;
 import modelo.ConsultasNave;
 import modelo.Nave;
-import modelo.Tipo;
 import vista.VistaNave;
+
 
 //para relacionar directamente con la vista implementamos ActionListener
 public class ControladorNave implements ActionListener{
     //creamos atributos objetos de VistaNave,Nave y ConsultaPersona los importamos
     private VistaNave vista;
     private Nave nave;
-    private Tipo tipo;
     private ConsultasNave modelo; 
 
     //Creamos constructor
@@ -32,9 +31,9 @@ public class ControladorNave implements ActionListener{
     
     //creamos metodo iniciar
     public void iniciar(){
-        vista.setTitle("CRUD con MVC");//Colocamos titulo a la vista
+        vista.setTitle("Administrador DE Naves Espaciales");//Colocamos titulo a la vista
         vista.setLocationRelativeTo(null);//centrar
-        vista.cajaID.setVisible(false);// que la caja del id no se muestr
+        vista.cajaID.setVisible(false);// que la caja del id no se muestre
     }
 
     @Override//se sobreescribe metodo implementamos los abstractos y actionPerformed(ActionEvent ae) para insertar eventos a los botones
@@ -48,7 +47,7 @@ public class ControladorNave implements ActionListener{
             nave.setCombustible(vista.cajaCombustible.getText());
             nave.setVelocidadKmHora(Double.valueOf(vista.cajaVelocidad.getText()));
             nave.setPotenciaHp(Double.valueOf((vista.cajaPotencia.getText())));
-            nave.setPropulsionTonelada(Double.valueOf((vista.cajaTipo.getText())));
+            nave.setPropulsionTonelada(Double.valueOf((vista.cajaPropulsion.getText())));
             nave.setCantidadPersona(Integer.parseInt(vista.cajaCantidad.getText()));
             nave.setOrbitaKm(Double.valueOf((vista.cajaOrbita.getText())));
             nave.setTransportaTonelada(Double.valueOf((vista.cajaTransporta.getText())));
@@ -56,7 +55,7 @@ public class ControladorNave implements ActionListener{
             nave.setIdTipo(Integer.parseInt(vista.cajaIdTipo.getText()));
             nave.setIdAgencia(Integer.parseInt(vista.cajaIdAgencia.getText()));
             
-            // nave.setPropulsionTonelada(vista.comboGenero.getSelectedItem().toString());//obtenemos el que selecciono el usuario
+          
             
             if(modelo.insertar(nave)){//llamamos al modelo para usar metodo para insertarle los datos de la nave
                 JOptionPane.showMessageDialog(null, "Registro insertado correctamente");
@@ -80,7 +79,7 @@ public class ControladorNave implements ActionListener{
                 vista.cajaCombustible.setText(nave.getCombustible());
                 vista.cajaVelocidad.setText(String.valueOf(nave.getVelocidadKmHora()));
                 vista.cajaPotencia.setText(String.valueOf(nave.getPotenciaHp()));//convertimos a strin el date
-                vista.cajaTipo.setText(String.valueOf(nave.getPropulsionTonelada()));
+                vista.cajaPropulsion.setText(String.valueOf(nave.getPropulsionTonelada()));
                 vista.cajaCantidad.setText(String.valueOf(nave.getCantidadPersona()));
                 vista.cajaOrbita.setText(String.valueOf(nave.getOrbitaKm()));
                 vista.cajaTransporta.setText(String.valueOf(nave.getTransportaTonelada()));
@@ -91,7 +90,7 @@ public class ControladorNave implements ActionListener{
                 vista.cajaIdTipo.setText(String.valueOf(nave.getIdTipo()));
                 vista.cajaIdAgencia.setText(String.valueOf(nave.getIdAgencia()));
                 
-                vista.comboGenero.setSelectedItem(nave.getPropulsionTonelada());
+                
             }
             else{//si no no existe
                 JOptionPane.showMessageDialog(null, "No existe una persona con esa clave");
@@ -108,7 +107,7 @@ public class ControladorNave implements ActionListener{
             nave.setCombustible(vista.cajaCombustible.getText());
             nave.setVelocidadKmHora(Double.valueOf(vista.cajaVelocidad.getText()));
             nave.setPotenciaHp(Double.valueOf((vista.cajaPotencia.getText())));
-            nave.setPropulsionTonelada(Double.valueOf((vista.cajaTipo.getText())));
+            nave.setPropulsionTonelada(Double.valueOf((vista.cajaPropulsion.getText())));
             nave.setCantidadPersona(Integer.parseInt(vista.cajaCantidad.getText()));
             nave.setOrbitaKm(Double.valueOf((vista.cajaOrbita.getText())));
             nave.setTransportaTonelada(Double.valueOf((vista.cajaTransporta.getText())));
@@ -116,7 +115,7 @@ public class ControladorNave implements ActionListener{
             nave.setIdTipo(Integer.parseInt(vista.cajaIdTipo.getText()));
             nave.setIdAgencia(Integer.parseInt(vista.cajaIdAgencia.getText()));
             
-          //nave.setPropulsionTonelada(vista.comboGenero.getSelectedItem().toString());
+          
             
             if(modelo.modificar(nave)){//llamamos a modificar del modelo le pasamos datos a modificar de nave
                 JOptionPane.showMessageDialog(null, "Registro modificado correctamente");
@@ -163,7 +162,9 @@ public class ControladorNave implements ActionListener{
         vista.cajaTransporta.setText(null);
         vista.cajaIdTipo.setText(null);
         vista.cajaIdAgencia.setText(null);
-        
+        vista.cajaAgencia.setText(null);
+        vista.cajaPropulsion.setText(null);
+        vista.cajaFuncion.setText(null);
         //vista.comboGenero.setSelectedIndex(0);
     }
     
