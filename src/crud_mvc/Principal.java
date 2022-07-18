@@ -6,6 +6,7 @@ import modelo.ConsultasNave;
 import modelo.Nave;
 import vista.VistaNave;
 
+
 public class Principal {
 
     public static void main(String[] args) {
@@ -16,7 +17,8 @@ public class Principal {
         ControladorNave controlador = new ControladorNave(vista, nave, modelo);//se envia al constructor vista,nave y modelo
         
         controlador.iniciar();//iniciamos el controlador
-        vista.setVisible(true);//que se vea visible la vista
+        //que se vea visible la vista
+        vista.setVisible(true);
     }
     
 }
